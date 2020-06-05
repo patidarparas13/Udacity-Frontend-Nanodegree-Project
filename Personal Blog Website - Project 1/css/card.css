@@ -1,0 +1,44 @@
+.card {
+    border: 1px solid #d3d3d3;
+    border-radius: .25rem;
+    color: white;
+}
+
+.bg-img {
+    background-size: contain;
+    min-height: 180px;
+    background-position: center;
+    background-image: url(https://mir-s3-cdn-cf.behance.net/projects/max_808/68e6e483880937.Y3JvcCwxOTIwLDE1MDEsMCwyMDk.jpg);
+}
+
+.card-content {
+    padding: 15px;
+}
+
+button {
+    background-color: transparent;
+    border: 1px solid white;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    border-radius: .25rem;
+}
+
+.card-content>button>a {
+    color: white;
+    text-decoration: none;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: auto;
+    grid-gap: 20px;
+}
+
+@media all and (max-width: 800px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-gap: 20px;
+    }
+}
