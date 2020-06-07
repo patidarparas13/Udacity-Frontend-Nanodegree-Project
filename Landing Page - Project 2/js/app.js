@@ -11,47 +11,59 @@
  * 
  * JS Standard: ESlint
  * 
-*/
+ */
 
-/**
- * Define Global Variables
- * 
-*/
+const navBarList = document.getElementById('navbar__list');
+const navBarElements = document.querySelectorAll('section');
 
+navBarElements.forEach(el => {
+    const navListElement = `<li class='menu__link' data-link=${el.id}><a href="#${el.id}">${el.dataset.nav}</li>`
+    navBarList.insertAdjacentHTML('beforeend', navListElement)
+});
 
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
+(function($) {
+    "use strict";
 
+    $('body').scrollspy({
+        target: '.navbar__menu',
+        offset: 60
+    });
 
-
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-
-// build the nav
-
-
-// Add class 'active' to section when near top of viewport
+    $('#topNav').affix({
+        offset: {
+            top: 200
+        }
+    });
 
 
-// Scroll to anchor ID using scrollTO event
+});
+window.addEventListener('DOMContentLoaded', () => {
 
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const navListElement = document.querySelector(
+                `.menu__link[data-link='${entry.target.id}']`,
+            )
+            const section = document.getElementById(entry.target.id)
 
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
+            if (entry && entry.isIntersecting) {
+                navListElement.classList.add('active')
+                section.classList.add('active')
+            } else {
+                if (navListElement.classList.contains('active')) {
+                    navListElement.classList.remove('active')
+                }
 
-// Build menu 
+                if (section.classList.contains('active')) {
+                    section.classList.remove('active')
+                }
+            }
+        });
+    });
 
-// Scroll to section on link click
+    // Track all sections that have an `id` applied
+    navBarElements.forEach(el => {
+        observer.observe(document.getElementById(el.id))
+    });
 
-// Set sections as active
-
-
+});
