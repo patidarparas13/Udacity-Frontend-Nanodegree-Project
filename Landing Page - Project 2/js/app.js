@@ -17,53 +17,32 @@ const navBarList = document.getElementById('navbar__list');
 const navBarElements = document.querySelectorAll('section');
 
 navBarElements.forEach(el => {
-    const navListElement = `<li class='menu__link' data-link=${el.id}><a href="#${el.id}">${el.dataset.nav}</li>`
+    const navListElement = `<li class='menu__link' data-link=${el.id}><a href="#${el.id}" class="a__link">${el.dataset.nav}</li>`
     navBarList.insertAdjacentHTML('beforeend', navListElement)
 });
 
-(function($) {
-    "use strict";
+let mainNavLinks = document.querySelectorAll("nav ul li a");
+let mainSections = document.querySelectorAll("section");
 
-    $('body').scrollspy({
-        target: '.navbar__menu',
-        offset: 60
-    });
+let lastId;
+let cur = [];
+window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
 
-    $('#topNav').affix({
-        offset: {
-            top: 200
+    mainNavLinks.forEach(link => {
+        let section = document.querySelector(link.hash);
+
+        if (
+            section.offsetTop <= fromTop &&
+            section.offsetTop + section.offsetHeight > fromTop
+        ) {
+            link.classList.add("active");
+        } else {
+            link.classList.remove("active");
         }
     });
-
-
 });
-window.addEventListener('DOMContentLoaded', () => {
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            const navListElement = document.querySelector(
-                `.menu__link[data-link='${entry.target.id}']`,
-            )
-            const section = document.getElementById(entry.target.id)
-
-            if (entry && entry.isIntersecting) {
-                navListElement.classList.add('active')
-                section.classList.add('active')
-            } else {
-                if (navListElement.classList.contains('active')) {
-                    navListElement.classList.remove('active')
-                }
-
-                if (section.classList.contains('active')) {
-                    section.classList.remove('active')
-                }
-            }
-        });
-    });
-
-    // Track all sections that have an `id` applied
-    navBarElements.forEach(el => {
-        observer.observe(document.getElementById(el.id))
-    });
-
+document.querySelectorAll('a[href^="#"]').addEventListener("click", function(event) {
+    event.preventDefault();
+    document.querySelector(this.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
 });
