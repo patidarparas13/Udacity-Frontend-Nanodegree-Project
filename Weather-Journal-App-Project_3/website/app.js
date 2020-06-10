@@ -23,7 +23,7 @@ const getWeatherInfo = async function(url) {
 
 const generateHandler = async function() {
     const elemOfZip = document.getElementById('zip').value;
-    const url = `${apiURL}${elemOfZip},${countryCode}&appid=${apiKEY}`;
+    const url = `${apiURL}${elemOfZip},${countryCode}&appid=${apiKEY}&units=metric`;
 
     if (zip.length === 0 || feelings.length === 0) {
         alert("Please fill up all values !");
@@ -57,7 +57,7 @@ async function saveData(url, data) {
 const contentUpdate = function() {
     const content = document.getElementById('feelings').value;
     const elemOfContent = document.getElementById('content');
-    elemOfContent.innerText = content;
+    elemOfContent.innerHTML = content;
 }
 
 const updateUI = async() => {
@@ -66,8 +66,8 @@ const updateUI = async() => {
     const elemOfTemp = document.getElementById('temp');
     let uiData = await getData("http://localhost:3000/addData");
     //Updating the UI
-    elemOfDate.innerText = uiData.date;
-    elemOfTemp.innerText = uiData.temp;
+    elemOfDate.innerHTML = uiData.date;
+    elemOfTemp.innerHTML = uiData.temp;
 
     contentUpdate();
 };
@@ -84,4 +84,5 @@ const getData = async function(url) {
     }
 
 }
+
 elemOfGenerateBtn.addEventListener('click', generateHandler);
