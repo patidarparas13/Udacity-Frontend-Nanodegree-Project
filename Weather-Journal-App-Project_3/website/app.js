@@ -1,6 +1,6 @@
 /* Global Variables */
 const apiURL = "http://api.openweathermap.org/data/2.5/weather?zip="
-const apiKEY = "f01a0985105d21523c12579c94f4314e"
+const apiKEY = "******************************"
 const elemOfGenerateBtn = document.getElementById('generate');
 const countryCode = "us"
 
